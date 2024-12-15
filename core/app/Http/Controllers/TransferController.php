@@ -16,6 +16,8 @@ use App\Models\Transfer;
 use App\Models\Alerts;
 use Carbon\Carbon;
 
+use App\Mail\NewNotification;
+use Illuminate\Support\Facades\Mail;
 
 class TransferController extends Controller
 {
@@ -74,12 +76,23 @@ class TransferController extends Controller
         $user=User::find($data->user_id);
         $currency=Currency::whereStatus(1)->first();
         if($set->email_notify==1){
-            send_email(
-                $user->email, 
-                $user->username, 
-                'Transfer Request has been approved', 
-                'Transfer of '.$data->amount.$currency->name.'. has been approved<br>Thanks for working with us.'
-            );
+            
+             $objDemo = new \stdClass();
+        	    $objDemo->message = "Transfer of $data->amount$currency->name has been approved.";
+        	    $objDemo->sender = "Solvent Groups";
+                $objDemo->date = \Carbon\Carbon::Now();
+                $objDemo->subject = "Transfer Request has been approved";
+                $objDemo->name = $user->name;
+        	    
+        	    Mail::to($user->email)->send(new NewNotification($objDemo));
+        	    
+        	    
+            //send_email(
+             //   $user->email, 
+            //    $user->username, 
+           //     'Transfer Request has been approved', 
+          //      'Transfer of '.$data->amount.$currency->name.'. has been approved<br>Thanks for working with us.'
+          //  );
         }
         if ($res) {
             return back()->with('success', 'Request was Successfully approved!');
@@ -113,12 +126,23 @@ class TransferController extends Controller
         $user=User::find($data->sender_id);
         $currency=Currency::whereStatus(1)->first();
         if($set->email_notify==1){
-            send_email(
-                $user->email, 
-                $user->username, 
-                'Transfer Request has been approved', 
-                'Transfer of '.$data->amount.$currency->name.'. has been approved<br>Thanks for working with us.'
-            );
+            
+             $objDemo = new \stdClass();
+        	    $objDemo->message = "Transfer of $data->amount$currency->name has been approved.";
+        	    $objDemo->sender = "Solvent Groups";
+                $objDemo->date = \Carbon\Carbon::Now();
+                $objDemo->subject = "Transfer Request has been approved";
+                $objDemo->name = $user->name;
+        	    
+        	    Mail::to($user->email)->send(new NewNotification($objDemo));
+        	    
+        	    
+           // send_email(
+             //   $user->email, 
+             //   $user->username, 
+             //   'Transfer Request has been approved', 
+            //    'Transfer of '.$data->amount.$currency->name.'. has been approved<br>Thanks for working with us.'
+           // );
         }
         if ($res) {
             return back()->with('success', 'Request was Successfully approved!');

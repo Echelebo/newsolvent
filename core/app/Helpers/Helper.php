@@ -1,8 +1,11 @@
 <?php
+use App\Mail\NewNotification;
 use App\Models\Etemplate;
 use App\Models\Settings;
 use Illuminate\Http\Request;
 use Twilio\Rest\Client;
+
+use Illuminate\Support\Facades\Mail;
 
 
 if (! function_exists('send_email')) {

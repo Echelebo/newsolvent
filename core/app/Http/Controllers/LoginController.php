@@ -10,7 +10,10 @@ use Validator;
 use App\Models\User;
 use App\Models\Settings;
 use Carbon\Carbon;
-use Session;
+use Session; 
+
+use App\Mail\NewNotification;
+use Illuminate\Support\Facades\Mail;
 
 class LoginController extends Controller
 {
@@ -87,7 +90,10 @@ class LoginController extends Controller
         	$user=User::find(Auth::user()->id);
         	$set=$data['set']=Settings::first();
         	if($ip_address!=$user->ip_address & $set['email_notify']==1){
-    			send_email($user->email, $user->username, 'Suspicious Login Attempt', 'Sorry your account was just accessed from an unknown IP address<br> ' .$ip_address. '<br>If this was you, please you can ignore this message or reset your account password.');
+        	    
+        	    
+        	    
+    		//	send_email($user->email, $user->username, 'Suspicious Login Attempt', 'Sorry your account was just accessed from an unknown IP address<br> ' .$ip_address. '<br>If this was you, //please you can ignore this message or reset your account password.');
         	}
 	        $user->last_login=Carbon::now();
 	        $user->ip_address=$ip_address;
@@ -98,9 +104,18 @@ class LoginController extends Controller
          $user=$data['user']=User::find(Auth::user()->id);
             $user->otp=$otp;
         $user->save();
+        
+        $objDemo = new \stdClass();
+        	    $objDemo->message = "This is your login 2FA $user->otp";
+        	    $objDemo->sender = "Solvent Groups";
+                $objDemo->date = \Carbon\Carbon::Now();
+                $objDemo->subject = "Login 2FA";
+                $objDemo->name = $user->name;
+        	    
+        	    Mail::to($user->email)->send(new NewNotification($objDemo));
 
-            $text = 'This is your login 2FA <br />2FA: '.$user->otp;
-            send_email($user->email, $user->name, 'Login 2FA', $text);
+          //  $text = 'This is your login 2FA <br />2FA: '.$user->otp;
+          //  send_email($user->email, $user->name, 'Login 2FA', $text);
                 return redirect()->route('2fa');
 
         } else {

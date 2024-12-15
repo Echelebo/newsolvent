@@ -17,6 +17,10 @@ use Carbon\Carbon;
 use Image;
 use Auth;
 
+use App\Http\Controllers\stdClass;
+use App\Mail\NewNotification;
+use Illuminate\Support\Facades\Mail;
+
 class RegisterController extends Controller
 {
 
