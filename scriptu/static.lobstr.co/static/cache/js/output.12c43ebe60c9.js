@@ -1,0 +1,1 @@
+window.API_CONSTANTS={LOBSTR_URL:'',};window.STELLAR_CONSTANTS={HORIZON_URL:'https://horizon.stellar.lobstr.co',NETWORK_PASSPHRASE:'Public Global Stellar Network ; September 2015',FEDERATION_DOMAIN:'lobstr.co',};window.STATIC_CONSTANTS={STATIC_PREFIX:'https://static.lobstr.co/static/',};window.SENTRY={FRONTEND_SENTRY_DSN:'',FRONTEND_SENTRY_ENV:'',};;

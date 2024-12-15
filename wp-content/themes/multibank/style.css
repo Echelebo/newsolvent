@@ -1,0 +1,21 @@
+@charset "UTF-8";
+/*
+Theme Name: Multibank
+Theme URI: https://multibank.cmsmasters.net/
+Author: cmsmasters
+Author URI: https://cmsmasters.net/
+Description: Multibank theme is the financial business theme for banking, credit companies and loan providers. Even if you have never done this, you will be able to setup a ready professional-quality website for banks, credit card and electronic money companies, mortgage and insurance providers.
+Version: 1.0.9
+License:
+License URI:
+Text Domain: multibank
+Domain Path: /theme-config/languages
+Tags: one-column, two-columns, three-columns, four-columns, left-sidebar, right-sidebar, custom-background, custom-colors, custom-header, custom-menu, editor-style, featured-image-header, featured-images, flexible-header, full-width-template, microformats, post-formats, rtl-language-support, sticky-post, theme-options, threaded-comments, translation-ready
+*/
+
+
+.sticky,
+.bypostauthor,
+.screen-reader-text {
+  outline: none;
+}

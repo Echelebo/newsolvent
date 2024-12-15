@@ -1,0 +1,277 @@
+/**
+* Theme Name: Multibank Child
+* Description: This is a child theme of Multibank.
+* Author: cmsmasters
+* Author URI: https://cmsmasters.net/
+* Template: multibank
+* Version: 1.0.0
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&amp;display=swap');
+
+html.cmsmasters-demos-preview-opened {
+	overflow: hidden;
+}
+
+.cmsmasters-demos-preview {
+	font-family: 'DM Sans';
+	height: 100%;
+	position: fixed;
+	left: auto;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	z-index: 99999;
+	transform: translateX(100%);
+	transition: transform .3s ease-in-out;
+}
+
+.cmsmasters-demos-preview-opened .cmsmasters-demos-preview {
+	transform: translateX(0);
+}
+
+.cmsmasters-demos-preview__buttons {
+	position: absolute;
+	top: 22%;
+	right: 100%;
+}
+
+.cmsmasters-demos-preview__toggle-big,
+.cmsmasters-demos-preview__buy-link {
+	font-weight: 700;
+	font-size: 13px;
+	line-height: 28px;
+	color: #ffffff;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	width: 80px;
+	height: 80px;
+	padding: 14px 5px 9px;
+	cursor: pointer;
+	transition: background-color .3s ease-in-out;
+}
+
+.cmsmasters-demos-preview__toggle-big svg,
+.cmsmasters-demos-preview__buy-link svg {
+	margin-bottom: 3px;
+}
+
+.cmsmasters-demos-preview__buy-link {
+	margin-top: 5px;
+}
+
+.cmsmasters-demos-preview__toggle-big {
+	background-color: #325BFF;
+}
+
+.cmsmasters-demos-preview-opened .cmsmasters-demos-preview__toggle-big,
+.cmsmasters-demos-preview__toggle-big:hover {
+	background-color: #2C50E0;
+}
+
+.cmsmasters-demos-preview__buy-link {
+	background-color: #07CA6C;
+}
+
+.cmsmasters-demos-preview__buy-link:hover {
+	color: #ffffff;
+	background-color: #01B75F;
+}
+
+.cmsmasters-demos-preview__toggle-small {
+	background-color: rgba(0, 0, 0, .2);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 32px;
+	height: 32px;
+	cursor: pointer;
+	transition: background-color .3s ease-in-out;
+}
+
+.cmsmasters-demos-preview__toggle-small svg {
+	fill: transparent;
+}
+
+.cmsmasters-demos-preview-opened .cmsmasters-demos-preview__toggle-small,
+.cmsmasters-demos-preview__toggle-small:hover {
+	background-color: rgba(0, 0, 0, .5);
+}
+
+@media only screen and (max-width: 767px) {
+	.cmsmasters-demos-preview__toggle-big,
+	.cmsmasters-demos-preview__buy-link {
+		display: none;
+	}
+}
+
+@media only screen and (min-width: 768px) {
+	.cmsmasters-demos-preview__toggle-small {
+		display: none;
+	}
+}
+
+.cmsmasters-demos-preview__container {
+	background-color: #ffffff;
+	width: 380px;
+	max-width: calc(100vw - 80px);
+	height: 100%;
+	padding: 35px 35px 110px;
+	box-shadow: 0 0 40px 0 rgba(0, 0, 0, .2);
+	overflow-y: auto;
+	position: relative;
+}
+
+.cmsmasters-demos-preview__container::-webkit-scrollbar {
+	display: none;
+}
+
+.cmsmasters-demos-preview__close {
+	display: block;
+	padding: 20px;
+	position: absolute;
+	right: 0;
+	top: 0;
+	opacity: .25;
+	cursor: pointer;
+	transition: opacity .3s ease-in-out;
+}
+
+.cmsmasters-demos-preview__close:hover {
+	opacity: 1;
+}
+
+.cmsmasters-demos-preview__close svg {
+	display: block;
+}
+
+.cmsmasters-demos-preview__heading {
+	margin-bottom: 50px;
+	text-align: center;
+}
+
+.cmsmasters-demos-preview__heading-img {
+	margin-bottom: -24px;
+}
+
+.cmsmasters-demos-preview__heading-title {
+	font-weight: 500;
+	font-size: 24px;
+	line-height: 32px;
+	letter-spacing: -1px;
+	color: #151515;
+}
+
+.cmsmasters-demos-preview__heading-subtitle {
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 24px;
+	color: rgba(24, 24, 24, .7);
+	margin-top: 12px;
+}
+
+.cmsmasters-demos-preview__demo {
+	margin-top: 30px;
+}
+
+.cmsmasters-demos-preview__demo:first-child {
+	margin-top: 0;
+}
+
+.cmsmasters-demos-preview__demo-img {
+	margin-bottom: 15px;
+	position: relative;
+	box-shadow: none;
+	transition: box-shadow .3s ease-in-out;
+}
+
+.cmsmasters-demos-preview__demo-img:hover {
+	box-shadow: 0 5px 20px 0 rgba(0, 0, 0, .15);
+}
+
+.cmsmasters-demos-preview__demo-img a {
+	display: block;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index: 1;
+}
+
+.cmsmasters-demos-preview__demo-img img {
+	display: block;
+}
+
+.cmsmasters-demos-preview__demo-heading {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.cmsmasters-demos-preview__demo-title {
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 24px;
+	color: #151515;
+	margin-right: 10px;
+}
+
+.cmsmasters-demos-preview__demo-link {
+	font-weight: 500;
+	font-size: 14px;
+	line-height: 24px;
+	color: #151515;
+	text-decoration: underline;
+	text-underline-offset: 2px;
+}
+
+.cmsmasters-demos-preview__demo-link:hover {
+	color: rgba(21, 21, 21, .4);
+}
+
+.cmsmasters-demos-preview__footer {
+	width: 100%;
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	z-index: 2;
+}
+
+.cmsmasters-demos-preview__footer-link {
+	font-weight: 700;
+	font-size: 17px;
+	line-height: 28px;
+	letter-spacing: -0.005em;
+	color: #ffffff;
+	background-image: url(assets/images/button-gradient.svg);
+	background-size: cover;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	padding: 18px 20px;
+}
+
+.cmsmasters-demos-preview__footer-link:hover {
+	color: #ffffff;
+}
+
+.cmsmasters-demos-preview__footer-link span {
+	margin-left: 20px;
+}
+
+@media only screen and (max-width: 767px) {
+	.cmsmasters-demos-preview__back-to-landing {
+		display: none;
+	}
+}
+
+@media only screen and (min-width: 768px) {
+	.cmsmasters-demos-preview__footer-buy {
+		display: none;
+	}
+}

@@ -1,0 +1,1 @@
+(function(){navigator.registerProtocolHandler("web+stellar","https://lobstr.co/home/?uri=%s","LOBSTR Wallet");})();;

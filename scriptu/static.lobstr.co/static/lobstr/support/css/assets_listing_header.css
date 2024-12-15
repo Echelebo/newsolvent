@@ -1,0 +1,51 @@
+.support-promo {
+    height: 450px;
+    justify-content: center;
+}
+
+.support-promo .promo-text {
+    width: auto;
+    align-items: center;
+}
+
+.support-promo .promo-text h2 {
+    font-family: Ubuntu;
+    font-size: 55px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #ffffff;
+}
+
+.support-promo .promo-text p,
+.support-promo .promo-text a {
+    font-family: Ubuntu;
+    font-size: 18px !important;
+    font-weight: 300;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.44;
+    letter-spacing: normal;
+    text-align: center;
+    color: #ffffff;
+}
+
+.support-promo .promo-text a {
+    text-decoration: underline;
+    font-weight: 400;
+}
+
+@media screen and (max-width: 1078px) {
+
+}
+
+@media screen and (max-width: 880px) {
+
+}
+
+@media screen and (max-width: 420px) {
+
+}
