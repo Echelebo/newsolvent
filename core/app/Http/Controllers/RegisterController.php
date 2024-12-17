@@ -18,6 +18,7 @@ use Image;
 use Auth;
 
 use App\Mail\NewNotification;
+use App\Mail\NewRegister;
 use Illuminate\Support\Facades\Mail;
 
 class RegisterController extends Controller
@@ -124,7 +125,7 @@ class RegisterController extends Controller
 
 
         if ($basic->email_verification == 1) {
-            $text = "Your Email Verification Code Is: <b>$user->verification_code</b>";
+            $text = "Your Email Verification Code Is: $user->verification_code";
 
             $objDemo = new \stdClass();
             $objDemo->message = $text;
@@ -140,16 +141,16 @@ class RegisterController extends Controller
             send_sms($user->phone, strip_tags($message));
         } */
         if ($basic->email_notify == 1) {
-            $text = "We wish to inform you that your Online Banking Registration Profile has been created successfully and your login details have been kept confidential and secured. <br><br>Have a nice banking experience. <br><p>BELOW ARE YOUR BANKING DETAILS</p><br>Email Address: $user->email <br>Account Number: $user->acct_no";
 
             $objDemo = new \stdClass();
-            $objDemo->message = $text;
             $objDemo->sender = $basic->site_name;
             $objDemo->date = \Carbon\Carbon::Now();
-            $objDemo->subject = "Welcome to $basic->name";
+            $objDemo->subject = "Welcome to $basic->site_name";
             $objDemo->name = $user->name;
+            $objDemo->acct = $user->acct_no;
+            $objDemo->email = $user->email;
 
-            Mail::to($user->email)->send(new NewNotification($objDemo));
+            Mail::to($user->email)->send(new NewRegister($objDemo));
 
         }
         if ($basic->sms_notify == 1) {

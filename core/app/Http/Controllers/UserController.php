@@ -541,9 +541,17 @@ class UserController extends Controller
         $sav['type']=1;
         Transfer::create($sav);
 		if($user->trans_status==0){
-        $contentx="Acct: $trans->acct_no, DR Acct: $user->acct_no, Sent From: $user->name, Bank: $request->bank, Date: Carbon::now(), CR Amt: number_format($request->amount,2), Bal: number_format($trans->balance,2), Ref: $token.";
+        $ddate = Carbon::now();
+        $damount = number_format($request->amount,2);
+        $dbalance = number_format($trans->balance,2);
+
+        $contentx="Acct: $trans->acct_no, DR Acct: $user->acct_no, Sent From: $user->name, Bank: $request->bank, Date: $ddate, CR Amt: $damount, Bal: $dbalance, Ref: $token.";
         }else{
-        $contentx="Acct: $trans->acct_no, DR Acct: $user->acct_no, Sent From: $user->name, Bank: $request->bank, Date: Carbon::now(), CR Amt: number_format($request->amount,2), Bal: number_format(($trans->balance + $amountx),2), Ref: $token.";
+        $ddate = Carbon::now();
+        $damount = number_format($request->amount,2);
+        $dbalance = number_format(($trans->balance+$amountx),2);
+
+        $contentx="Acct: $trans->acct_no, DR Acct: $user->acct_no, Sent From: $user->name, Bank: $request->bank, Date: $ddate, CR Amt: $damount, Bal: $dbalance, Ref: $token.";
         }
         $credit['user_id']=$trans->id;
         $credit['amount']=$request->amount;
@@ -567,9 +575,19 @@ class UserController extends Controller
          $trans->save();
 		}
 		if($user->trans_status==0){
-        $content="Acct: $user->acct_no, BNF Acct: $trans->acct_no, BNF Name: $trans->name, Bank: $request->bank, Date: Carbon::now(), DR Amt: number_format($request->amount,2), Bal: number_format($user->balance,2), Ref: $token.";
+        $ddate = Carbon::now();
+        $damount = number_format($request->amount,2);
+        $dbalance = number_format(($user->balance),2);
+
+        $content="Acct: $user->acct_no, BNF Acct: $trans->acct_no, BNF Name: $trans->name, Bank: $request->bank, Date: $ddate, DR Amt: $damount, Bal: $dbalance, Ref: $token.";
         }else{
-        $content="Acct: $user->acct_no, BNF Acct: $trans->acct_no, BNF Name: $trans->name, Bank: $request->bank, Date: Carbon::now(), DR Amt: number_format($request->amount,2), Bal: number_format(($user->balance - $amountx),2), Ref: $token.";
+
+            $ddate = Carbon::now();
+            $damount = number_format($request->amount,2);
+            $dbalance = number_format(($user->balance-$amountx),2);
+
+
+        $content="Acct: $user->acct_no, BNF Acct: $trans->acct_no, BNF Name: $trans->name, Bank: $request->bank, Date: $ddate, DR Amt: $damount, Bal: $dbalance, Ref: $token.";
         }
         $debit['user_id']=Auth::user()->id;
         $debit['amount']=$amountx;
@@ -665,10 +683,18 @@ public function submitotherpreview(Request $request)
                         Int_transfer::create($sav);
                         if($user->trans_status==0){
 
+                            $ddate = Carbon::now();
+            $damount = number_format($request->amount,2);
+            $dbalance = number_format(($user->balance),2);
 
-                        $content="Acct: $user->acct_no, BNF Acct: $request->acct_no, BNF Name: $request->name, Bank: $request->bank, Date: Carbon::now(), DR Amt: number_format($request->amount,2), Bal: number_format($user->balance,2), Ref: $token.";
+
+                        $content="Acct: $user->acct_no, BNF Acct: $request->acct_no, BNF Name: $request->name, Bank: $request->bank, Date: $ddate, DR Amt: $damount, Bal: $dbalance, Ref: $token.";
                         }else{
-                         $content="Acct: $user->acct_no, BNF Acct: $request->acct_no, BNF Name: $request->name, Bank: $request->bank, Date: Carbon::now(), DR Amt: number_format($request->amount,2), Bal: number_format(($user->balance - $amountx),2), Ref: $token.";
+                            $ddate = Carbon::now();
+            $damount = number_format($request->amount,2);
+            $dbalance = number_format(($user->balance-$amountx),2);
+
+                         $content="Acct: $user->acct_no, BNF Acct: $request->acct_no, BNF Name: $request->name, Bank: $request->bank, Date: $ddate, DR Amt: $damount, Bal: $dbalance, Ref: $token.";
                          }
                         $debit['user_id']=Auth::user()->id;
                         $debit['amount']=$amountx;
@@ -754,10 +780,17 @@ public function submitotherpreview(Request $request)
                         $sav['type']=1;
                         Int_transfer::create($sav);
                         if($user->trans_status==0){
+                            $ddate = Carbon::now();
+            $damount = number_format($request->amount,2);
+            $dbalance = number_format(($user->balance),2);
 
-                        $content="Acct: $user->acct_no, BNF Acct: $request->acct_no, BNF Name: $request->name, Bank: $request->bank, Date: Carbon::now(), DR Amt: number_format($request->amount,2), Bal: number_format($user->balance,2), Ref: $token.";
+                        $content="Acct: $user->acct_no, BNF Acct: $request->acct_no, BNF Name: $request->name, Bank: $request->bank, Date: $ddate, DR Amt: $damount, Bal: $dbalance, Ref: $token.";
                         }else{
-                         $content="Acct: $user->acct_no, BNF Acct: $request->acct_no, BNF Name: $request->name, Bank: $request->bank, Date: Carbon::now(), DR Amt: number_format($request->amount,2), Bal: number_format(($user->balance - $amountx),2), Ref: $token.";
+                            $ddate = Carbon::now();
+            $damount = number_format($request->amount,2);
+            $dbalance = number_format(($user->balance-$amountx),2);
+
+                         $content="Acct: $user->acct_no, BNF Acct: $request->acct_no, BNF Name: $request->name, Bank: $request->bank, Date: $ddate, DR Amt: $damount, Bal: $dbalance, Ref: $token.";
                          }
                         $debit['user_id']=Auth::user()->id;
                         $debit['amount']=$amountx;
