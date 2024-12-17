@@ -387,7 +387,7 @@ class UserController extends Controller
 
              $objDemo = new \stdClass();
         	    $objDemo->message = "Your Verification Code is $code.";
-        	    $objDemo->sender = $set->name;
+        	    $objDemo->sender = $set->site_name;
                 $objDemo->date = \Carbon\Carbon::Now();
                 $objDemo->subject = "Verificatin Code";
                 $objDemo->name = $user->name;
@@ -437,7 +437,7 @@ class UserController extends Controller
 
         	    $objDemo = new \stdClass();
         	    $objDemo->message = "We are currently reviewing your deposit of $request->amount$currency->name, once confirmed your balance will be credited automatically.";
-        	    $objDemo->sender = $set->name;
+        	    $objDemo->sender = $set->site_name;
                 $objDemo->date = \Carbon\Carbon::Now();
                 $objDemo->subject = "Deposit under review";
                 $objDemo->name = $user->name;
@@ -608,7 +608,7 @@ class UserController extends Controller
 
             $objDemo = new \stdClass();
       $objDemo->message = $content;
-      $objDemo->sender = $set->name;
+      $objDemo->sender = $set->site_name;
       $objDemo->date = \Carbon\Carbon::Now();
       $objDemo->subject = "Debit alert";
       $objDemo->name = $user->name;
@@ -617,7 +617,7 @@ class UserController extends Controller
 
        $objDemo = new \stdClass();
       $objDemo->message = $contentx;
-      $objDemo->sender = $set->name;
+      $objDemo->sender = $set->site_name;
       $objDemo->date = \Carbon\Carbon::Now();
       $objDemo->subject = "Credit alert";
       $objDemo->name = $trans->name;
@@ -712,7 +712,7 @@ public function submitotherpreview(Request $request)
 
                                 $objDemo = new \stdClass();
       $objDemo->message = $content;
-      $objDemo->sender = $set->name;
+      $objDemo->sender = $set->site_name;
       $objDemo->date = \Carbon\Carbon::Now();
       $objDemo->subject = "Debit alert";
       $objDemo->name = $user->name;
@@ -798,7 +798,7 @@ public function submitotherpreview(Request $request)
 
                                 $objDemo = new \stdClass();
       $objDemo->message = $content;
-      $objDemo->sender = $set->name;
+      $objDemo->sender = $set->site_name;
       $objDemo->date = \Carbon\Carbon::Now();
       $objDemo->subject = "Debit alert";
       $objDemo->name = $user->name;

@@ -1,9 +1,8 @@
 @component('mail::message')
-# Hi {{ $demo->name }},
+    # Hi {{ $demo->name }},
 
-{!! $demo->message !!}
+    {!! $demo->message !!}
 
-<br>
-Thanks,<br>
-{{ $demo->sender }}.
+    Thanks,
+    {{ $demo->sender }}.
 @endcomponent

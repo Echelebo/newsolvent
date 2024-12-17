@@ -27,7 +27,7 @@
 <body>
 
     <table class="wrapper"
-        style="width: 100%; height: 100%; border-collapse: collapse; table-layout: fixed; margin-left: auto; margin-right: auto; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #edf2f7;"
+        style="width: 100%; height: 100%; border-collapse: collapse; table-layout: fixed; margin: 0 auto; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #edf2f7;"
         cellpadding="0" cellspacing="0" role="presentation">
         <tr>
             <td align="center">
@@ -37,7 +37,7 @@
                     <!-- Email Body -->
                     <tr>
                         <td class="body" width="100%" cellpadding="0" cellspacing="0">
-                            <table class="inner-body" align="left" width="570" cellpadding="0" cellspacing="0"
+                            <table class="inner-body" align="left" width="100%" cellpadding="0" cellspacing="0"
                                 role="presentation">
                                 <!-- Body content -->
                                 <tr>

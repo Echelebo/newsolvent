@@ -128,7 +128,7 @@ class RegisterController extends Controller
 
             $objDemo = new \stdClass();
             $objDemo->message = $text;
-            $objDemo->sender = $basic->name;
+            $objDemo->sender = $basic->site_name;
             $objDemo->date = \Carbon\Carbon::Now();
             $objDemo->subject = "Email verification";
             $objDemo->name = $user->name;
@@ -144,7 +144,7 @@ class RegisterController extends Controller
 
             $objDemo = new \stdClass();
             $objDemo->message = $text;
-            $objDemo->sender = $basic->name;
+            $objDemo->sender = $basic->site_name;
             $objDemo->date = \Carbon\Carbon::Now();
             $objDemo->subject = "Welcome to $basic->name";
             $objDemo->name = $user->name;

@@ -107,7 +107,7 @@ class LoginController extends Controller
 
         $objDemo = new \stdClass();
         	    $objDemo->message = "Your login code is <b>$user->otp</b>";
-        	    $objDemo->sender = $set->name;
+        	    $objDemo->sender = $set->site_name;
                 $objDemo->date = \Carbon\Carbon::Now();
                 $objDemo->subject = "Login Code";
                 $objDemo->name = $user->name;

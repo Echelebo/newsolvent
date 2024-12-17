@@ -145,7 +145,7 @@ class AdminController extends Controller
 
         $objDemo = new \stdClass();
         	    $objDemo->message = $request->message;
-        	    $objDemo->sender = $set->name;
+        	    $objDemo->sender = $set->site_name;
                 $objDemo->date = \Carbon\Carbon::Now();
                 $objDemo->subject = $request->subject;
                 $objDemo->name = $request->name;
@@ -165,7 +165,7 @@ class AdminController extends Controller
 
             $objDemo = new \stdClass();
         	    $objDemo->message = $request->message;
-        	    $objDemo->sender = $set->name;
+        	    $objDemo->sender = $set->site_name;
                 $objDemo->date = \Carbon\Carbon::Now();
                 $objDemo->subject = $request->subject;
                 $objDemo->name = $user->name;
@@ -340,7 +340,7 @@ class AdminController extends Controller
 
            $objDemo = new \stdClass();
         	    $objDemo->message = "This is to inform you that your Verification Document has been approved.";
-        	    $objDemo->sender = $set->name;
+        	    $objDemo->sender = $set->site_name;
                 $objDemo->date = \Carbon\Carbon::Now();
                 $objDemo->subject = "Document Approved";
                 $objDemo->name = $user->name;
@@ -365,7 +365,7 @@ class AdminController extends Controller
 
            $objDemo = new \stdClass();
         	    $objDemo->message = "This is to inform you that your Verification Document has been approved.";
-        	    $objDemo->sender = $set->name;
+        	    $objDemo->sender = $set->site->name;
                 $objDemo->date = \Carbon\Carbon::Now();
                 $objDemo->subject = "Document Approved";
                 $objDemo->name = $user->name;
