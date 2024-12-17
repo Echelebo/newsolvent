@@ -30,6 +30,8 @@ class NewRegister extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.NewRegister')->subject($this->demo->subject);
+        return $this->markdown('emails.NewRegister')->subject($this->demo->subject)->with([
+            'textColor' => 'rust'
+        ]);
     }
 }
