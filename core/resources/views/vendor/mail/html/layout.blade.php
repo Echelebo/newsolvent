@@ -36,12 +36,12 @@
 
                     <!-- Email Body -->
                     <tr>
-                        <td class="body" width="100%" cellpadding="0" cellspacing="0">
+                        <td class="body" cellpadding="0" cellspacing="0">
                             <table class="inner-body" align="left" width="100%" cellpadding="0" cellspacing="0"
                                 role="presentation">
                                 <!-- Body content -->
                                 <tr>
-                                    <td class="content-cell">
+                                    <td class="content-cell" style="font-size: 14px; font-family: Arial; width: 600px;">
                                         {{ Illuminate\Mail\Markdown::parse($slot) }}
 
                                         {{ $subcopy ?? '' }}
