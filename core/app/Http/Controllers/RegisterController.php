@@ -17,7 +17,6 @@ use Carbon\Carbon;
 use Image;
 use Auth;
 
-use App\Http\Controllers\stdClass;
 use App\Mail\NewNotification;
 use Illuminate\Support\Facades\Mail;
 
@@ -126,15 +125,32 @@ class RegisterController extends Controller
 
         if ($basic->email_verification == 1) {
             $text = "Your Email Verification Code Is: <b>$user->verification_code</b>";
-            send_email($user->email, $user->name, 'Email verification', $text);
+
+            $objDemo = new \stdClass();
+            $objDemo->message = $text;
+            $objDemo->sender = $basic->name;
+            $objDemo->date = \Carbon\Carbon::Now();
+            $objDemo->subject = "Email verification";
+            $objDemo->name = $user->name;
+
+            Mail::to($user->email)->send(new NewNotification($objDemo));
         }
        /* if ($basic->sms_verification == 1) {
             $message = "Your phone verification code is: $user->sms_code";
             send_sms($user->phone, strip_tags($message));
         } */
         if ($basic->email_notify == 1) {
-            $text = 'We wish to inform you that your Online Banking Registration Profile has been created successfully and your login details have been kept confidential and secured. <br /><br />Have a nice banking experience. <br /><br /><p style="background-color: #6A3433; color: #ffffff;">BELOW ARE YOUR BANKING DETAILS</p>Email Address: '.$user->email.'<br />Account Number: '.$user->acct_no;
-            send_email($user->email, $user->name, 'Welcome Email', $text);
+            $text = 'We wish to inform you that your Online Banking Registration Profile has been created successfully and your login details have been kept confidential and secured. <br><br>Have a nice banking experience. <br /><p style="background-color: #6A3433; color: #ffffff;">BELOW ARE YOUR BANKING DETAILS</p>Email Address: '.$user->email.'<br />Account Number: '.$user->acct_no;
+
+            $objDemo = new \stdClass();
+            $objDemo->message = $text;
+            $objDemo->sender = $basic->name;
+            $objDemo->date = \Carbon\Carbon::Now();
+            $objDemo->subject = "Welcome to $basic->name";
+            $objDemo->name = $user->name;
+
+            Mail::to($user->email)->send(new NewNotification($objDemo));
+
         }
         if ($basic->sms_notify == 1) {
             $message = "Welcome To Grand Firm Credit Bank, We wish to inform you that your Online Banking Registration Profile has been created successfully. Check your email for more details";

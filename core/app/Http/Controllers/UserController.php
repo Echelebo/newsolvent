@@ -372,6 +372,8 @@ class UserController extends Controller
     {
         $user = User::find(Auth::user()->id);
 
+        $set = Settings::first();
+
         if (Carbon::parse($user->email_time)->addMinutes(1) > Carbon::now()) {
             $time = Carbon::parse($user->email_time)->addMinutes(1);
             $delay = $time->diffInSeconds(Carbon::now());
@@ -382,17 +384,17 @@ class UserController extends Controller
             $user->email_time = Carbon::now();
             $user->verification_code = $code;
             $user->save();
-            
+
              $objDemo = new \stdClass();
         	    $objDemo->message = "Your Verification Code is $code.";
-        	    $objDemo->sender = "Solvent Groups";
+        	    $objDemo->sender = $set->name;
                 $objDemo->date = \Carbon\Carbon::Now();
                 $objDemo->subject = "Verificatin Code";
                 $objDemo->name = $user->name;
-        	    
+
         	    Mail::to($user->email)->send(new NewNotification($objDemo));
-        	    
-        	    
+
+
             //send_email($user->email, $user->username, 'Verificatin Code', 'Your Verification Code is ' . $code);
             session()->flash('success', 'Verification Code Send successfully');
         }
@@ -432,17 +434,17 @@ class UserController extends Controller
             $sav['trx']=$trx=str_random(16);
             Banktransfer::create($sav);
         	if($set['email_notify']==1){
-        	    
+
         	    $objDemo = new \stdClass();
         	    $objDemo->message = "We are currently reviewing your deposit of $request->amount$currency->name, once confirmed your balance will be credited automatically.";
-        	    $objDemo->sender = "Solvent Groups";
+        	    $objDemo->sender = $set->name;
                 $objDemo->date = \Carbon\Carbon::Now();
-                $objDemo->subject = "Deposit request under review";
+                $objDemo->subject = "Deposit under review";
                 $objDemo->name = $user->name;
-        	    
+
         	    Mail::to($user->email)->send(new NewNotification($objDemo));
-        	    
-        	    
+
+
     			//send_email($user->email,$user->username,'Deposit request under review','We are currently reviewing your deposit of '.$request->amount.$currency->name.', once confirmed your balance will be credited automatically.<br>Thanks for working with us.');
                 send_email($set->email,$set->site_name,'New bank deposit request','Hello admin, you have a new bank deposit request for '.$trx);
             }
@@ -603,26 +605,26 @@ class UserController extends Controller
            send_sms($trans->phone, 'Solvent Groups, ' . $contentx);
        }
         if($set['email_notify']==1){
-            
+
             $objDemo = new \stdClass();
       $objDemo->message = $content;
-      $objDemo->sender = "Solvent Groups";
+      $objDemo->sender = $set->name;
       $objDemo->date = \Carbon\Carbon::Now();
       $objDemo->subject = "Debit alert";
       $objDemo->name = $user->name;
-   
+
       Mail::to($user->email)->send(new NewNotification($objDemo));
-      
+
        $objDemo = new \stdClass();
       $objDemo->message = $contentx;
-      $objDemo->sender = "Solvent Groups";
+      $objDemo->sender = $set->name;
       $objDemo->date = \Carbon\Carbon::Now();
       $objDemo->subject = "Credit alert";
-      $objDemo->name = $user->name;
-   
+      $objDemo->name = $trans->name;
+
       Mail::to($trans->email)->send(new NewNotification($objDemo));
-      
-      
+
+
          //  send_email($user->email, $user->username, 'Debit alert', $content);
 		 //  send_email($trans->email, $trans->username, 'Credit alert', $contentx);
        }
@@ -662,11 +664,11 @@ public function submitotherpreview(Request $request)
                         $sav['type']=1;
                         Int_transfer::create($sav);
                         if($user->trans_status==0){
-        
-        
-                        $content="Acct: $user->acct_no, BNF Acct: $trans->acct_no, BNF Name: $trans->name, Bank: $request->bank, Date: Carbon::now(), DR Amt: number_format($request->amount,2), Bal: number_format($user->balance,2), Ref: $token.";
+
+
+                        $content="Acct: $user->acct_no, BNF Acct: $request->acct_no, BNF Name: $request->name, Bank: $request->bank, Date: Carbon::now(), DR Amt: number_format($request->amount,2), Bal: number_format($user->balance,2), Ref: $token.";
                         }else{
-                         $content="Acct: $user->acct_no, BNF Acct: $trans->acct_no, BNF Name: $trans->name, Bank: $request->bank, Date: Carbon::now(), DR Amt: number_format($request->amount,2), Bal: number_format(($user->balance - $amountx),2), Ref: $token.";
+                         $content="Acct: $user->acct_no, BNF Acct: $request->acct_no, BNF Name: $request->name, Bank: $request->bank, Date: Carbon::now(), DR Amt: number_format($request->amount,2), Bal: number_format(($user->balance - $amountx),2), Ref: $token.";
                          }
                         $debit['user_id']=Auth::user()->id;
                         $debit['amount']=$amountx;
@@ -707,17 +709,17 @@ public function submitotherpreview(Request $request)
                         send_sms($user->phone, 'Solvent Groups, ' . $content);
                          }
                             if($set['email_notify']==1){
-                                
+
                                 $objDemo = new \stdClass();
       $objDemo->message = $content;
-      $objDemo->sender = "Solvent Groups";
+      $objDemo->sender = $set->name;
       $objDemo->date = \Carbon\Carbon::Now();
       $objDemo->subject = "Debit alert";
       $objDemo->name = $user->name;
-   
+
       Mail::to($user->email)->send(new NewNotification($objDemo));
-      
-      
+
+
                     //   send_email($user->email, $user->username, 'Debit alert', $content);
                        }
                         return redirect()->route('viewr', $debit['reference'])->with('success', 'Transfer Successful');
@@ -752,10 +754,10 @@ public function submitotherpreview(Request $request)
                         $sav['type']=1;
                         Int_transfer::create($sav);
                         if($user->trans_status==0){
-                            
-                        $content="Acct: $user->acct_no, BNF Acct: $trans->acct_no, BNF Name: $trans->name, Bank: $request->bank, Date: Carbon::now(), DR Amt: number_format($request->amount,2), Bal: number_format($user->balance,2), Ref: $token.";
+
+                        $content="Acct: $user->acct_no, BNF Acct: $request->acct_no, BNF Name: $request->name, Bank: $request->bank, Date: Carbon::now(), DR Amt: number_format($request->amount,2), Bal: number_format($user->balance,2), Ref: $token.";
                         }else{
-                         $content="Acct: $user->acct_no, BNF Acct: $trans->acct_no, BNF Name: $trans->name, Bank: $request->bank, Date: Carbon::now(), DR Amt: number_format($request->amount,2), Bal: number_format(($user->balance - $amountx),2), Ref: $token.";
+                         $content="Acct: $user->acct_no, BNF Acct: $request->acct_no, BNF Name: $request->name, Bank: $request->bank, Date: Carbon::now(), DR Amt: number_format($request->amount,2), Bal: number_format(($user->balance - $amountx),2), Ref: $token.";
                          }
                         $debit['user_id']=Auth::user()->id;
                         $debit['amount']=$amountx;
@@ -793,16 +795,16 @@ public function submitotherpreview(Request $request)
                         send_sms($user->phone, 'Solvent Groups, ' . $content);
                          }
                             if($set['email_notify']==1){
-                                
+
                                 $objDemo = new \stdClass();
       $objDemo->message = $content;
-      $objDemo->sender = "Solvent Groups";
+      $objDemo->sender = $set->name;
       $objDemo->date = \Carbon\Carbon::Now();
       $objDemo->subject = "Debit alert";
       $objDemo->name = $user->name;
-   
+
       Mail::to($user->email)->send(new NewNotification($objDemo));
-      
+
                    //    send_email($user->email, $user->username, 'Debit alert', $content);
                        }
                         return redirect()->route('viewr', $debit['reference'])->with('success', 'Transfer Successful');
@@ -905,27 +907,27 @@ public function submitotherpreview(Request $request)
                         }
                         }
                        if($set['email_notify']==1){
-                           
+
                             $objDemo = new \stdClass();
       $objDemo->message = $content;
       $objDemo->sender = "Solvent Groups";
       $objDemo->date = \Carbon\Carbon::Now();
       $objDemo->subject = "Debit alert";
       $objDemo->name = $user->name;
-   
+
       Mail::to($user->email)->send(new NewNotification($objDemo));
-      
+
                         //    send_email($user->email, $user->username, 'Debit alert', $content);
                             if(count($count)>0){
                            // send_email($userx->email, $userx->username, 'Credit alert', $contentx);
-                           
+
                             $objDemo = new \stdClass();
       $objDemo->message = $contentx;
       $objDemo->sender = "Solvent Groups";
       $objDemo->date = \Carbon\Carbon::Now();
       $objDemo->subject = "Credit alert";
       $objDemo->name = $userx->name;
-   
+
       Mail::to($userx->email)->send(new NewNotification($objDemo));
                         }
                         }
@@ -995,28 +997,28 @@ public function submitotherpreview(Request $request)
                         }
                         }
                        if($set['email_notify']==1){
-                           
+
                             $objDemo = new \stdClass();
       $objDemo->message = $content;
       $objDemo->sender = "Solvent Groups";
       $objDemo->date = \Carbon\Carbon::Now();
       $objDemo->subject = "Debit alert";
       $objDemo->name = $user->name;
-   
+
       Mail::to($user->email)->send(new NewNotification($objDemo));
-      
+
                           //  send_email($user->email, $user->username, 'Debit alert', $content);
                             if(count($count)>0){
-                                
+
                                  $objDemo = new \stdClass();
       $objDemo->message = $contentx;
       $objDemo->sender = "Solvent Groups";
       $objDemo->date = \Carbon\Carbon::Now();
       $objDemo->subject = "Credit alert";
       $objDemo->name = $userx->name;
-   
+
       Mail::to($userx->email)->send(new NewNotification($objDemo));
-      
+
                          //   send_email($userx->email, $userx->username, 'Credit alert', $contentx);
                         }
                         }

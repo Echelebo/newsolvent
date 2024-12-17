@@ -28,7 +28,8 @@ use Carbon\Carbon;
 use Image;
 
 
-
+use App\Mail\NewNotification;
+use Illuminate\Support\Facades\Mail;
 
 
 class AdminController extends Controller
@@ -141,7 +142,17 @@ class AdminController extends Controller
     public function Sendemail(Request $request)
     {
         $set=Settings::first();
-        send_email($request->to, $request->name, $request->subject, $request->message);
+
+        $objDemo = new \stdClass();
+        	    $objDemo->message = $request->message;
+        	    $objDemo->sender = $set->name;
+                $objDemo->date = \Carbon\Carbon::Now();
+                $objDemo->subject = $request->subject;
+                $objDemo->name = $request->name;
+
+        	    Mail::to($request->to)->send(new NewNotification($objDemo));
+
+
         $notification = array('message' => 'Mail Sent Successfuly!', 'alert-type' => 'success');
         return back()->with($notification);
     }
@@ -151,7 +162,15 @@ class AdminController extends Controller
         $set=Settings::first();
         foreach ($request->email as $email) {
             $user=User::whereEmail($email)->first();
-            send_email($request->to, $user->name, $request->subject, $request->message);
+
+            $objDemo = new \stdClass();
+        	    $objDemo->message = $request->message;
+        	    $objDemo->sender = $set->name;
+                $objDemo->date = \Carbon\Carbon::Now();
+                $objDemo->subject = $request->subject;
+                $objDemo->name = $user->name;
+
+        	    Mail::to($request->to)->send(new NewNotification($objDemo));
         }
         $notification = array('message' => 'Mail Sent Successfuly!', 'alert-type' => 'success');
         return back()->with($notification);
@@ -307,7 +326,7 @@ class AdminController extends Controller
 
     public function TransferxDiimf($id)
     {
-
+        $set=Settings::first();
         $data = Alerts::findOrFail($id);
         $user = User::findOrFail($data->user_id);
         if($user->first_verify == 'token'){
@@ -319,7 +338,14 @@ class AdminController extends Controller
 
             if ($res) {
 
-           send_email($user->email, $user->username, 'IMF Document Approved', 'This is to inform you that your IMF Verification Document has been approved');
+           $objDemo = new \stdClass();
+        	    $objDemo->message = "This is to inform you that your Verification Document has been approved.";
+        	    $objDemo->sender = $set->name;
+                $objDemo->date = \Carbon\Carbon::Now();
+                $objDemo->subject = "Document Approved";
+                $objDemo->name = $user->name;
+
+        	    Mail::to($user->email)->send(new NewNotification($objDemo));
 
                 return back()->with('success', 'IMF Doc Succesffully Approved!');
             } else {
@@ -329,6 +355,7 @@ class AdminController extends Controller
 
     public function TransferxDitax($id)
     {
+        $set=Settings::first();
         $data = Alerts::findOrFail($id);
         $data->tax_verify = 1;
         $data->status = 1;
@@ -336,7 +363,14 @@ class AdminController extends Controller
             $user = User::findOrFail($data->user_id);
             if ($res) {
 
-           send_email($user->email, $user->username, 'TAX Document Approved', 'This is to inform you that your TAX Verification Document has been approved');
+           $objDemo = new \stdClass();
+        	    $objDemo->message = "This is to inform you that your Verification Document has been approved.";
+        	    $objDemo->sender = $set->name;
+                $objDemo->date = \Carbon\Carbon::Now();
+                $objDemo->subject = "Document Approved";
+                $objDemo->name = $user->name;
+
+        	    Mail::to($user->email)->send(new NewNotification($objDemo));
 
                 return back()->with('success', 'TAX Doc Succesffully Approved!');
             } else {
