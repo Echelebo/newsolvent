@@ -140,7 +140,7 @@ class RegisterController extends Controller
             send_sms($user->phone, strip_tags($message));
         } */
         if ($basic->email_notify == 1) {
-            $text = 'We wish to inform you that your Online Banking Registration Profile has been created successfully and your login details have been kept confidential and secured. <br><br>Have a nice banking experience. <br /><p style="background-color: #6A3433; color: #ffffff;">BELOW ARE YOUR BANKING DETAILS</p>Email Address: '.$user->email.'<br />Account Number: '.$user->acct_no;
+            $text = "We wish to inform you that your Online Banking Registration Profile has been created successfully and your login details have been kept confidential and secured. <br><br>Have a nice banking experience. <br><p>BELOW ARE YOUR BANKING DETAILS</p><br>Email Address: $user->email <br>Account Number: $user->acct_no";
 
             $objDemo = new \stdClass();
             $objDemo->message = $text;
