@@ -41,7 +41,7 @@
                                 role="presentation">
                                 <!-- Body content -->
                                 <tr>
-                                    <td class="content-cell" style="font-size: 14px; font-family: Arial; width: 600px;">
+                                    <td class="content-cell">
                                         {{ Illuminate\Mail\Markdown::parse($slot) }}
 
                                         {{ $subcopy ?? '' }}
